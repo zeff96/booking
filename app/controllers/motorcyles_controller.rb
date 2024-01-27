@@ -28,4 +28,8 @@ class MotorcylesController < ApplicationController
   def set_motorcyle
     @motorcircle = Motorcycle.find(params[:id])
   end
+
+  def motorcircle_params
+    params.require(:motorcircle).permit(:name, :image, :finance_fee, :option_to_purchase, :total_amount_payable, :duration)
+  end
 end
