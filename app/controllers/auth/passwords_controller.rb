@@ -15,7 +15,7 @@ class Auth::PasswordsController < ApplicationController
   end
 
   def update_password
-    user = User.find_by(reset_password_token: params["user"]["reset_password_token"])
+    user = User.find_by(reset_password_token: params["reset_password_token"])
 
     if user
       user.update(password: params["user"]["password"])

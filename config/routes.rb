@@ -14,4 +14,6 @@ Rails.application.routes.draw do
     post "reset_password", to: "passwords#reset_password"
     post "edit_password", to: "passwords#update_password"
   end
+
+  resources :motorcircles, only: %i[index show new create]
 end
