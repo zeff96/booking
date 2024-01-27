@@ -1,17 +1,31 @@
 class MotorcylesController < ApplicationController
   before_action :set_motorcyle, only: %i[show edit update destroy]
   def index
-    @motorcles = Motorcycle.all
-    render json: @motorcles
+    @motorcircles = Motorcycle.all
+    render json: @motorcircles
   end
 
   def show
-    render json: @motorcle
+    render json: @motorcircle
+  end
+
+  def new
+    @motorcircle = Motorcycle.new
+  end
+
+  def create
+    @motorcircle = current_user.motorcircles.build(motorcircle_params)
+
+    if @motorcircle.save
+      render json: { message: "created successfully!", status: :created, location:@motorcircle}
+    else
+      render json: { error: @motorcircle.errors.full_message }
+    end
   end
 
   private
 
   def set_motorcyle
-    @motorcle = Motorcycle.find(params[:id])
+    @motorcircle = Motorcycle.find(params[:id])
   end
 end
