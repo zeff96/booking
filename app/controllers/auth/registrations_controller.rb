@@ -18,7 +18,7 @@ class Auth::RegistrationsController < ApplicationController
   end
 
   def account_confirmation
-    user = User.find_by(confirmation_token: params["user"]["confirmation_token"])
+    user = User.find_by(confirmation_token: params["confirmation_token"])
 
     if user && !user.confirmed_at
       user.update(confirmed_at: Time.now.utc.iso8601)
