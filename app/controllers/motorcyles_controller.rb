@@ -5,6 +5,10 @@ class MotorcylesController < ApplicationController
     render json: @motorcles
   end
 
+  def show
+    render json: @motorcle
+  end
+
   private
 
   def set_motorcyle
