@@ -28,6 +28,11 @@ class MotorcirclesController < ApplicationController
   def edit; end
 
   def update
+    if @motorcircle.update(motorcircle_params)
+      render json: { message: "Updated successfully!", location: @motorcircle }
+    else
+      render json: {error: @motorcircle.errors.full_message }, status: :unprocessable_entity
+    end
   end
 
   def destroy
