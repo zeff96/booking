@@ -15,5 +15,5 @@ Rails.application.routes.draw do
     post "edit_password", to: "passwords#update_password"
   end
 
-  resources :motorcircles, only: %i[index show new create]
+  resources :motorcircles, only: %i[index show new create edit update destroy]
 end
