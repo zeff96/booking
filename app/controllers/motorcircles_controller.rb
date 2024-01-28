@@ -1,6 +1,7 @@
-class MotorcylesController < ApplicationController
-  before_action: authenticate_user!
+class MotorcirclesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_motorcyle, only: %i[show edit update destroy]
+
   def index
     @motorcircles = Motorcycle.all
     render json: @motorcircles
@@ -22,6 +23,14 @@ class MotorcylesController < ApplicationController
     else
       render json: { error: @motorcircle.errors.full_message }
     end
+  end
+
+  def edit; end
+
+  def update
+  end
+
+  def destroy
   end
 
   private
