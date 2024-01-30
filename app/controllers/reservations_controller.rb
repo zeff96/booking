@@ -1,4 +1,14 @@
 class ReservationsController < ApplicationController
+  before_action :set_motorcicle
+
+  def index
+  end
+
+  def new
+  end
+
+  def create
+  end
 
   private
   def set_motorcicle
