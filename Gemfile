@@ -49,4 +49,5 @@ end
 gem "jwt"
 gem "securerandom"
 gem "bcrypt"
+gem "jsbundling-rails"
 
