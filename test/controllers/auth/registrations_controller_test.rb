@@ -21,4 +21,13 @@ class Auth::RegistrationsControllerTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
     assert_equal "Email already taken", JSON.parse(response.body)["error"]
   end
+
+  test "should not create user with invalid params" do
+    assert_no_difference("User.count") do
+      post auth_signup_url, params: { user: { username: "test" } }, as: :json
+    end
+
+    assert_response :unprocessable_entity
+    assert_equal "Failed to create user!", JSON.parse(response.body)["error"]
+  end
 end
