@@ -5,4 +5,9 @@ class UserTest < ActiveSupport::TestCase
     user = User.new
     assert_not user.save, "Saved without valid name"
   end
+
+  test "should not save user without valid email" do
+    user = User.new(username: "test")
+    assert_not user.save, "Saved without valid email"
+  end
 end
