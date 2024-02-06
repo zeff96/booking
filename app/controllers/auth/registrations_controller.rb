@@ -2,7 +2,7 @@ class Auth::RegistrationsController < ApplicationController
 
   def create
     if email_exists?(params["user"]["email"])
-      render json: { error: "Email already taken" }
+      render json: { error: "Email already taken" }, status: :unprocessable_entity
     else
       user = User.new(sign_up_params)
       user.confirmation_token = generate_confirmation_token
