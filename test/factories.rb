@@ -6,3 +6,14 @@ FactoryBot.define do
     password_confirmation { "password" }
   end
 end
+
+FactoryBot.define do
+  factory :motorcircle do
+    name { "Vespas" }
+    image { "http://image@example.com" }
+    finance_fee { 100 }
+    option_to_purchase { 150 }
+    total_amount_payable { 200 }
+    duration { 48 }
+  end
+end
