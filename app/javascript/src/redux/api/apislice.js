@@ -15,7 +15,7 @@ const baseQuery = fetchBaseQuery({
 });
 
 const apiSlice = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: url }),
+  baseQuery: baseQuery,
   endpoints: () => ({}),
 });
 
