@@ -6,7 +6,11 @@ class Auth::SessionController < ApplicationController
       render json: { error: "Please confirm you account email before signing in!" }
     else
       if user&.authenticate(params["user"]["password"])
-        render json: { message: "Logged in successfully!", token: JsonWebToken.encode({sub: user.id}) }
+        render json: {
+           message: "Logged in successfully!", 
+           token: JsonWebToken.encode({sub: user.id}),
+           user: {name: user.username, email: user.email}
+          }
       else
         render json: { error: "Invalid credentials.Please try again" }, status: :unauthorized
       end
