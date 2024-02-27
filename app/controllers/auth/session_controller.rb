@@ -9,7 +9,7 @@ class Auth::SessionController < ApplicationController
         render json: {
            message: "Logged in successfully!", 
            token: JsonWebToken.encode({sub: user.id}),
-           user: {name: user.username, email: user.email}
+           user: UserSerializer.new(user)
           }
       else
         render json: { error: "Invalid credentials.Please try again" }, status: :unauthorized
