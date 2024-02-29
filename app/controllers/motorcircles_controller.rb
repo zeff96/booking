@@ -45,6 +45,6 @@ class MotorcirclesController < ApplicationController
   end
 
   def motorcircle_params
-    params.require(:motorcircle).permit(:name, :image, :finance_fee, :option_to_purchase, :total_amount_payable, :duration)
+    params.require(:motorcircle).permit(:name, :bio, :image, :finance_fee, :option_to_purchase, :total_amount_payable, :duration)
   end
 end
