@@ -3,8 +3,8 @@ class MotorcirclesController < ApplicationController
   before_action :set_motorcyle, only: %i[show edit update destroy]
 
   def index
-    @motorcircles = Motorcycle.all
-    render json: @motorcircles
+    @motorcircles = Motorcircle.all
+    render json: @motorcircles, each_serializer: MotorcircleSerializer
   end
 
   def show
@@ -12,7 +12,7 @@ class MotorcirclesController < ApplicationController
   end
 
   def new
-    @motorcircle = Motorcycle.new
+    @motorcircle = Motorcircle.new
   end
 
   def create
@@ -41,7 +41,7 @@ class MotorcirclesController < ApplicationController
   private
 
   def set_motorcyle
-    @motorcircle = Motorcycle.find(params[:id])
+    @motorcircle = Motorcircle.find(params[:id])
   end
 
   def motorcircle_params
