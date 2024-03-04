@@ -21,7 +21,7 @@ class MotorcirclesController < ApplicationController
     if @motorcircle.save
       render json: { message: "created successfully!", status: :created, location:@motorcircle}
     else
-      render json: { error: @motorcircle.errors.full_messages }
+      render json: { error: @motorcircle.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
