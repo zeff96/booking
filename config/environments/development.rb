@@ -75,17 +75,18 @@ Rails.application.configure do
   # }
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_options = { from: 'zeffo1975@gmail.com' }
+  config.action_mailer.default_url_options = { :host => "localhost:3001" }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     address:         'smtp.gmail.com',
     port:            587,
-    domain:          ENV["FRONTEND_HOST"],
-    user_name:       ENV["USERNAME"],
-    password:        ENV["PASSWORD"],
+    domain:          'gmail.ccom',
+    user_name:       ENV["GMAIL_USERNAME"],
+    password:        ENV["GMAIL_PASSWORD"],
     authentication:  'plain',
     enable_starttls: true,
     open_timeout:    5,
     read_timeout:    5 }
 
 end
+
