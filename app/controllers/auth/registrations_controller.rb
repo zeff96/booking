@@ -21,7 +21,7 @@ class Auth::RegistrationsController < ApplicationController
     user = User.find_by(confirmation_token: params["confirmation_token"])
 
     if user && !user.confirmed_at
-      user.update(confirmed_at: Time.now.utc.iso8601)
+      user.update(confirmed_at: Time.now.utc.iso8601, confirmation_token: nil)
       render json: { message: "Account updated successfully" }
     else
       render json: { error: "Invalid confirmation token or account already confirmed" }
