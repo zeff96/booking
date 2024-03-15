@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   # root "posts#index"
   namespace :auth do
     post "signup", to: "registrations#create"
-    post "account_confirmation", to: "registrations#account_confirmation"
+    post "account_confirmation", to: "registrations#account_confirmation", as: 'account_confirmation'
     post "login", to: "session#create"
     post "reset_password", to: "passwords#reset_password"
     post "edit_password", to: "passwords#update_password"
