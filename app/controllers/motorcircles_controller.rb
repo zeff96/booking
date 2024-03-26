@@ -8,7 +8,7 @@ class MotorcirclesController < ApplicationController
   end
 
   def show
-    render json: @motorcircle
+    render json: @motorcircle, serializer: MotorcircleSerializer
   end
 
   def new
