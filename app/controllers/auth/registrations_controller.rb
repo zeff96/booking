@@ -1,5 +1,7 @@
 class Auth::RegistrationsController < ApplicationController
 
+  PASSWORD_REGEX = /\A(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@!#\$])[a-zA-Z0-9@!#\$]{8,20}\Z/
+
   def create
     if email_exists?(params["user"]["email"])
       render json: { error: "Email already taken" }, status: :unprocessable_entity
