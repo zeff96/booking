@@ -36,6 +36,11 @@ class MotorcirclesController < ApplicationController
   end
 
   def destroy
+    if @motorcircle.destroy
+      render json: {message: 'Deleted successfully'}, status: :ok
+    else
+      render json: {error: 'Failed to delete'}, status: :unprocessable_entity
+    end
   end
 
   private
