@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     post "sign_up", to: "registrations#create"
     post "sign_in", to: "session#create"
     post "account_confirmation", to: "registrations#confirm"
+    post "resend_email_confirmation", to: "registrations#resend_email_confirmation"
     post "password_reset", to: "password_resets#create"
     patch "password_update", to: "password_resets#password_update"
   end
