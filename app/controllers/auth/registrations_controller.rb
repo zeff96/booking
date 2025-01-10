@@ -9,11 +9,12 @@ class Auth::RegistrationsController < ApplicationController
       render json: {error: "Password does not meet complexity"}, status: :unprocessable_entity
     else
       user = User.new(sign_up_params)
-      user.confirmation_token = generate_confirmation_token
-      user.confirmation_sent_at = Time.now.utc.iso8601
 
       if user.save
-        UserMailer.confirmation_instructions(user).deliver_later
+        UserMailer.with(
+          user: user,
+          token: user.generate_token_for(:email_confirmation)
+        ).email_confirmation.deliver_later
         render json: { message: "User signed up successfully" }
       else
         render json: { error: "Failed to create user!" }, status: :unprocessable_entity
@@ -21,28 +22,21 @@ class Auth::RegistrationsController < ApplicationController
     end
   end
 
-  def account_confirmation
-    user = User.find_by(confirmation_token: params["confirmation_token"])
-
-    if user && !user.confirmed_at
-      user.update(confirmed_at: Time.now.utc.iso8601, confirmation_token: nil)
-      render json: { message: "Account updated successfully" }
+  def confirm
+    if(user = User.find_by_token_for(:email_confirmation, params[:token]))
+      user.update(confirmed_at: Time.now.iso8601) unless user.confirmed_at
+      render json: {message: "Email confirmed successfully!"}
     else
-      render json: { error: "Invalid confirmation token or account already confirmed" }
-    end
+      render json: { error: "Invalid or expired token"}, status: :unprocessable_entity
+    end    
   end
-
   protected
 
   def sign_up_params
-    params.require(:user).permit(:username, :email, :password, :password_confirmation, :confirmation_token, :confirmation_sent_at)
+    params.require(:user).permit(:username, :email, :password, :password_confirmation)
   end
 
   def email_exists?(email)
     User.exists?(email: email)
-  end
-
-  def generate_confirmation_token
-    SecureRandom.urlsafe_base64
   end
 end
