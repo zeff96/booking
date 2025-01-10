@@ -9,11 +9,11 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
   namespace :auth do
-    post "signup", to: "registrations#create"
-    post "account_confirmation", to: "registrations#account_confirmation", as: 'account_confirmation'
-    post "login", to: "session#create"
-    post "reset_password", to: "passwords#reset_password"
-    post "edit_password", to: "passwords#update_password"
+    post "sign_up", to: "registrations#create"
+    post "sign_in", to: "session#create"
+    post "account_confirmation", to: "registrations#confirm"
+    post "password_reset", to: "password_resets#create"
+    patch "password_update", to: "password_resets#password_update"
   end
 
   resources :motorcircles, only: %i[index show new create edit update destroy]
