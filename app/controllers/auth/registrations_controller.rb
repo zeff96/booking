@@ -30,6 +30,18 @@ class Auth::RegistrationsController < ApplicationController
       render json: { error: "Invalid or expired token"}, status: :unprocessable_entity
     end    
   end
+
+  def resend_email_confirmation
+    if user = User.find_by(email: params[:user][:email])
+      UserMailer.with(
+        user: user,
+        token: user.generate_token_for(:email_confirmation)
+      ).email_confirmation.deliver_later
+      render json: {message: "Email confirmation sent successfully!"}
+    else
+      render json: {error: "Could not find user with given email.Please try again!" }, status: :unprocessable_entity
+    end
+  end
   protected
 
   def sign_up_params
