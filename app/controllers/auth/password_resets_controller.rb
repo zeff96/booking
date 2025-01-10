@@ -1,7 +1,7 @@
 class Auth::PasswordResetsController < ApplicationController
   before_action :set_user_by_token, only: [:password_update]
   def create
-    if(user = User.find_by(email: params[:user][:email]))
+    if user = User.find_by(email: params[:user][:email])
       UserMailer.with(
         user: user,
         token: user.generate_token_for(:password_reset)

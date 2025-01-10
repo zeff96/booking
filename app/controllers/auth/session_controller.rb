@@ -1,6 +1,6 @@
 class Auth::SessionController < ApplicationController
   def create
-    if(user = User.authenticate_by(email:params[:user][:email], password:params[:user][:password]))
+    if user = User.authenticate_by(email:params[:user][:email], password:params[:user][:password])
       if !user.confirmed_at
         render json: {error: "Please confirm your account"}, status: :unauthorized
       else
