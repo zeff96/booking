@@ -4,8 +4,18 @@ class Auth::SessionController < ApplicationController
       if !user.confirmed_at
         render json: {error: "Please confirm your account"}, status: :unauthorized
       else
+        token = JsonWebToken.encode({sub: user.id})
+        cookies.signed[:token] = {
+          value: token,
+          httponly: true,
+          secure: Rails.env.production?,
+          same_site: :none,
+          expires: 1.hour.from_now,
+          path: "/"
+        }
         render json: {
-        token: JsonWebToken.encode({sub: user.id, name: user.username, email: user.email}),
+        user: {id: user.id, role: user.role},  
+        message: 'User logged in successfully!'
       }, status: :ok
       end
 
