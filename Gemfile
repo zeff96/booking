@@ -40,6 +40,7 @@ group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
   gem "dotenv-rails"
   gem "factory_bot_rails"
+  gem "rspec-rails"
 end
 
 group :development do
