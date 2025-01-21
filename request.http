@@ -1,0 +1,48 @@
+POST http://localhost:3000/auth/sign_up
+Content-Type: application/json
+
+{
+    "user": {
+        "username": "test",
+        "email": "test@example.com",
+        "password": "Password@2",
+        "password_confirmation": "Password@2"
+    }
+}
+
+###
+POST http://localhost:3000/auth/account_confirmation?token=eyJfcmFpbHMiOnsiZGF0YSI6WzEsInRlc3RAZXhhbXBsZS5jb20iXSwiZXhwIjoiMjAyNS0wMS0xNFQwNDozMjozNS4xMDZaIiwicHVyIjoiVXNlclxuZW1haWxfY29uZmlybWF0aW9uXG44NjQwMCJ9fQ%3D%3D--ca8ea0dbe4d94188389c36e74c66cb8f48ead4f1
+
+###
+POST http://localhost:3000/auth/password_resets
+Content-Type: application/json
+
+{
+    "user": {
+        "email": "test@example.com"
+    }
+}
+
+###
+POST http://localhost:3000/auth/sign_in
+Content-Type: application/json
+
+{
+    "user": {
+        "email": "test@example.com",
+        "password": "Password@2"
+    }
+}
+
+###
+POST http://localhost:3000/auth/resend_email_confirmation
+Content-Type: application/json
+
+{
+    "user": {
+        "email": "test@example.com"
+    }
+}
+
+###
+GET http://localhost:3000/motorcycles

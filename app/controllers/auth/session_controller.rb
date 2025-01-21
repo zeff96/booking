@@ -10,6 +10,7 @@ class Auth::SessionController < ApplicationController
           httponly: true,
           secure: Rails.env.production?,
           same_site: :none,
+          domain: "localhost",
           expires: 1.hour.from_now,
           path: "/"
         }

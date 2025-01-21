@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   has_secure_password
 
+  has_many :motorcycles
+
   validates :username, presence: true
   validates :password, presence: true, on: :create
   validates :email, presence: true, uniqueness: true

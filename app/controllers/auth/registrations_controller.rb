@@ -15,7 +15,10 @@ class Auth::RegistrationsController < ApplicationController
           user: user,
           token: user.generate_token_for(:email_confirmation)
         ).email_confirmation.deliver_later
-        render json: { message: "User signed up successfully" }
+    
+        render json: { 
+          message: "User signed up successfully"
+        }
       else
         render json: { error: "Failed to create user!" }, status: :unprocessable_entity
       end

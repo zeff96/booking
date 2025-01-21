@@ -66,27 +66,26 @@ Rails.application.configure do
   # config.action_cable.disable_request_forgery_protection = true
 
   # Raise error when a before_action's only/except options reference missing actions
-  config.action_controller.raise_on_missing_callback_actions = true
-  config.action_mailer.delivery_method = :sendmail
+  # config.action_controller.raise_on_missing_callback_actions = true
+  # config.action_mailer.delivery_method = :sendmail
   # Defaults to:
   # config.action_mailer.sendmail_settings = {
   #   location: '/usr/sbin/sendmail',
   #   arguments: %w[ -i ]
   # }
   config.action_mailer.perform_deliveries = true
-  config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_url_options = { host: "localhost:3001" }
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    address:         'smtp.gmail.com',
-    port:            587,
-    domain:          'gmail.ccom',
-    user_name:       ENV["GMAIL_USERNAME"],
-    password:        ENV["GMAIL_PASSWORD"],
-    authentication:  'plain',
-    enable_starttls: true,
-    open_timeout:    5,
-    read_timeout:    5 }
-
+  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.default_url_options = { host: "localhost:3000" }
+  # config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.smtp_settings = {
+  #   address:         'smtp.gmail.com',
+  #   port:            587,
+  #   domain:          'gmail.ccom',
+  #   user_name:       ENV["GMAIL_USERNAME"],
+  #   password:        ENV["GMAIL_PASSWORD"],
+  #   authentication:  'plain',
+  #   enable_starttls: true,
+  #   open_timeout:    5,
+  #   read_timeout:    5 }
 end
 
