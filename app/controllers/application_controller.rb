@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::API
-  include ActionController::Cookies
   attr_reader :current_user
 
   private
@@ -14,6 +13,12 @@ class ApplicationController < ActionController::API
   end
 
   def auth_token
-    @auth_token ||= cookies.signed[:token]
+    auth_header = request.headers["authorization"]
+    if auth_header.present?
+      token = auth_header.split(" ").last
+    else
+      token = nil 
+    end
+    token
   end
 end
