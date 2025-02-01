@@ -3,9 +3,9 @@ class Auth::RegistrationsController < ApplicationController
   PASSWORD_REGEX = /\A(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@!#\$])[a-zA-Z0-9@!#\$]{8,20}\Z/
 
   def create
-    if email_exists?(params["user"]["email"])
+    if email_exists?(params[:user][:email])
       render json: { error: "Email already taken" }, status: :unprocessable_entity
-    elsif params["user"]["password"] !~ PASSWORD_REGEX
+    elsif params[:user][:password] !~ PASSWORD_REGEX
       render json: {error: "Password does not meet complexity"}, status: :unprocessable_entity
     else
       user = User.new(sign_up_params)
@@ -18,7 +18,7 @@ class Auth::RegistrationsController < ApplicationController
     
         render json: { 
           message: "User signed up successfully"
-        }
+        }, status: :ok
       else
         render json: { error: "Failed to create user!" }, status: :unprocessable_entity
       end
@@ -26,9 +26,11 @@ class Auth::RegistrationsController < ApplicationController
   end
 
   def confirm
-    if(user = User.find_by_token_for(:email_confirmation, params[:token]))
+    if(user = User.find_by_token_for(:email_confirmation, params[:user][:token]))
       user.update(confirmed_at: Time.now.iso8601) unless user.confirmed_at
-      render json: {message: "Email confirmed successfully!"}
+      render json: {
+        message: "Email confirmed successfully!"
+      }, status: :ok
     else
       render json: { error: "Invalid or expired token"}, status: :unprocessable_entity
     end    
