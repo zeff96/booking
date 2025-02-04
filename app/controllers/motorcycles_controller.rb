@@ -1,5 +1,7 @@
 class MotorcyclesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_motorcycle, only: [:show, :edit, :update, :destroy]
+  
   def index
     @motorcycles = Motorcycle.all
     render json: @motorcycles, each_serializer: MotorcircleSerializer
@@ -42,7 +44,7 @@ class MotorcyclesController < ApplicationController
   private
 
   def motorcycle_params
-    params.expect(motorcycle: [:name, :bio, :image, :finance_fee, :option_to_purchase, :total_amount_payable, :duration])
+    params.require(:motorcycle).permit(:name, :bio, :image, :finance_fee, :option_to_purchase, :total_amount_payable, :duration)
   end
 
   def set_motorcycle
