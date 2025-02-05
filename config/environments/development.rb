@@ -89,3 +89,8 @@ Rails.application.configure do
   #   read_timeout:    5 }
 end
 
+Rails.application.routes.default_url_options = {
+  host: "localhost",
+  port: 3000,
+  protocol: "http"
+}
