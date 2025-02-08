@@ -3,7 +3,8 @@ class MotorcircleSerializer < ActiveModel::Serializer
 
   def image_url
     if object.image.attached?
-      Rails.application.routes.url_helpers.url_for(object.image)
+      Rails.application.routes.url_helpers.rails_blob_url(object.image, host: "localhost:3000")
+
     end
   end
 end
