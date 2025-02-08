@@ -7,10 +7,8 @@ class MotorcyclesController < ApplicationController
     render json: @motorcycles, each_serializer: MotorcircleSerializer
   end
 
-  def show; end
-
-  def new
-    @motorcycle = current_user.motorcycles.new
+  def show
+    render json: @motorcycle, serializer: MotorcircleSerializer
   end
 
   def create
