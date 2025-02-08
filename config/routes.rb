@@ -1,3 +1,4 @@
+
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -16,4 +17,6 @@ Rails.application.routes.draw do
     patch "password_update", to: "password_resets#password_update"
   end
   resources :motorcycles
+  resources :cities, only: [:index]
+  resources :reservations, only: [:index, :create]
 end
