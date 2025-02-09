@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_02_170203) do
+ActiveRecord::Schema[7.1].define(version: 2025_02_09_163746) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,6 +42,14 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_02_170203) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "cities", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "timezone"
+    t.boolean "booking_open", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "motorcycles", force: :cascade do |t|
     t.string "name", null: false
     t.text "bio", null: false
@@ -53,6 +61,28 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_02_170203) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_motorcycles_on_user_id"
+  end
+
+  create_table "refresh_tokens", force: :cascade do |t|
+    t.string "token", null: false
+    t.date "expiry", null: false
+    t.boolean "is_valid", default: false, null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_refresh_tokens_on_user_id"
+  end
+
+  create_table "reservations", force: :cascade do |t|
+    t.string "city", null: false
+    t.date "date", null: false
+    t.bigint "user_id", null: false
+    t.bigint "motorcycle_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["city", "date"], name: "index_reservations_on_city_and_date", unique: true
+    t.index ["motorcycle_id"], name: "index_reservations_on_motorcycle_id"
+    t.index ["user_id"], name: "index_reservations_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -69,4 +99,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_02_170203) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "motorcycles", "users"
+  add_foreign_key "refresh_tokens", "users"
+  add_foreign_key "reservations", "motorcycles"
+  add_foreign_key "reservations", "users"
 end
