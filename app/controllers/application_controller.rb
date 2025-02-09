@@ -5,7 +5,7 @@ class ApplicationController < ActionController::API
 
   def authenticate_user!
     token = JsonWebToken.decode(auth_token)
-    @current_user = User.find(token["data"]["sub"])
+    @current_user = User.find(token["sub"])
   rescue JWT::ExpiredSignature
     render json: { error: "Auth token has expired" }
   rescue JWT::DecodeError
