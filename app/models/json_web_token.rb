@@ -1,8 +1,14 @@
 class JsonWebToken
-  def self.encode(payload)
-    exp = Time.now.to_i + 1 * 3600
-    exp_payload = { data: payload, exp: exp }
-    JWT.encode(exp_payload, ENV["JWT_SECRET_KEY"], "HS256")
+  def self.generate_access_token(user_id)
+    exp = 1.hours.from_now.to_i
+    payload = { sub: user_id, exp: exp }
+    JWT.encode(payload, ENV["JWT_SECRET_KEY"], "HS256")
+  end
+
+  def self.generate_refresh_token(user_id)
+    exp = 24.hours.from_now.to_i
+    payload = {sub: user_id, exp: exp}
+    JWT.encode(payload, ENV["JWT_SECRET_KEY"], 'HS256')
   end
 
   def self.decode(token)
