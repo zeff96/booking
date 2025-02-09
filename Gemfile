@@ -48,6 +48,6 @@ group :development do
   # gem "spring"
 end
 
-gem "jwt"
+gem 'jwt', '~> 2.10', '>= 2.10.1'
 gem 'active_model_serializers', '~> 0.10.0'
 
