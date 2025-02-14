@@ -4,10 +4,18 @@ class Auth::SessionController < ApplicationController
       if !user.confirmed_at
         render json: {error: "Please confirm your account"}, status: :unauthorized
       else
-        token = JsonWebToken.encode({sub: user.id})
+        access_token = JsonWebToken.generate_access_token(user.id)
+        refresh_token = JsonWebToken.generate_refresh_token(user.id)
+
+        RefreshToken.create!(
+          user_id: user.id, 
+          token: refresh_token,
+          expiry: 24.hours.from_now, 
+          )
         render json: {
           user: {id: user.id, role: user.role},
-          token: token,
+          token: access_token,
+          refresh_token: refresh_token,
           message: 'User logged in successfully!'
         }, status: :ok
       end
